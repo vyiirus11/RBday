@@ -275,14 +275,14 @@ class Block(Object):
         self.mask = pygame.mask.from_surface(self.image)
 
 
-class Fire(Object):
+class Chest(Object):
     ANIMATION_DELAY = 3
 
     def __init__(self, x, y, width, height):
         # fire
-        super().__init__(x, y, width, height, "fire")
-        self.fire = load_sprite_sheets("Traps", "Fire", width, height)
-        self.image = self.fire["on"][0]
+        super().__init__(x, y, width, height, "chest")
+        self.chest = load_sprite_sheets("Traps", "Chest", width, height)
+        self.image = self.chest["on"][0]
         self.mask = pygame.mask.from_surface(self.image)
         self.animation_count = 0
         self.animation_name = "off"
@@ -294,7 +294,7 @@ class Fire(Object):
         self.animation_name = "off"
 
     def loop(self):
-        sprites = self.fire[self.animation_name]
+        sprites = self.chest[self.animation_name]
         sprite_index = (self.animation_count //
                         self.ANIMATION_DELAY) % len(sprites)
         self.image = sprites[sprite_index]
@@ -378,10 +378,10 @@ def handle_move(player, objects):
     to_check = [collide_left, collide_right, *vertical_collide]
 
     for obj in to_check:
-        if obj and obj.name == "fire":
+        if obj and obj.name == "chest":
             player.make_hit()
     for obj in objects:
-        if isinstance(obj, Fire) and collide_rect(player, obj):
+        if isinstance(obj, Chest) and collide_rect(player, obj):
             if obj.rect.x == -830:
                 player.make_hit()
             if obj.rect.x == 3775:
@@ -447,11 +447,11 @@ def display_message(message, clock):
             text2_rect = text2.get_rect(center=(WIDTH // 2, HEIGHT - 350))
             message_window.blit(text2, text2_rect)
 
-            text3 = font.render("But there is more... Find the mystery chest!", 0, (0, 0, 0))
+            text3 = font.render("Did you find the mystery chest yet?", 0, (0, 0, 0))
             text3_rect = text3.get_rect(center=(WIDTH // 2, HEIGHT - 230))
             message_window.blit(text3, text3_rect)
 
-            text4 = font.render("(  Hint: A  )", 0, (0, 0, 0))
+            text4 = font.render("(  Play again?  )", 0, (0, 0, 0))
             text4_rect = text4.get_rect(center=(WIDTH // 2, HEIGHT - 150))
             message_window.blit(text4, text4_rect)
 
@@ -479,21 +479,35 @@ def main(window):
     # (...- block_size - "height", range of animation/sprite, bottom of object range)
     # Fire(x axis position,...)
     player = Player(210, HEIGHT - 50, 50, 50)
-    fire = Fire(-530, HEIGHT - block_size - 64, 15, 32)
-    fire.on()
+    #suprise chest
+    chest = Chest(-1800, HEIGHT - block_size - 64, 15, 32)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size)
              for i in range(-WIDTH*2 // block_size, (WIDTH * 4) // block_size)]
     # where the floor, grass blocks, and fire you want to place them
     objects = [*floor,
-               fire,
-               Fire(800, HEIGHT - block_size - 64, 15, 32),
-               Fire(2050, HEIGHT - block_size * 3 - 64, 15, 32),
-               Fire(3775, HEIGHT - block_size * 2 - 64, 15, 32),
-               Block(block_size * -10, HEIGHT - block_size * 2, block_size),
-               Block(block_size * -10, HEIGHT - block_size * 3, block_size),
-               Block(block_size * -10, HEIGHT - block_size * 4, block_size),
-               Block(block_size * -10, HEIGHT - block_size * 5, block_size),
-               Block(block_size * -10, HEIGHT - block_size * 6, block_size),
+               chest,
+               Chest(800, HEIGHT - block_size - 64, 15, 32),
+               Chest(2050, HEIGHT - block_size * 3 - 64, 15, 32),
+               Chest(3775, HEIGHT - block_size * 2 - 64, 15, 32),
+               Block(block_size * -20, HEIGHT - block_size * 2, block_size),
+               Block(block_size * -20, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -20, HEIGHT - block_size * 4, block_size),
+               Block(block_size * -20, HEIGHT - block_size * 5, block_size),
+               Block(block_size * -20, HEIGHT - block_size * 6, block_size),
+               Block(block_size * -15, HEIGHT - block_size * 2, block_size),
+               Block(block_size * -14, HEIGHT - block_size * 2, block_size),
+               Block(block_size * -14, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -13, HEIGHT - block_size * 2, block_size),
+               Block(block_size * -13, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -13, HEIGHT - block_size * 4, block_size),
+               Block(block_size * -12, HEIGHT - block_size * 5, block_size),
+               Block(block_size * -12, HEIGHT - block_size * 4, block_size),
+               Block(block_size * -12, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -12, HEIGHT - block_size * 2, block_size),
+               Block(block_size * -9, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -8, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -7, HEIGHT - block_size * 3, block_size),
+               Block(block_size * -5, HEIGHT - block_size * 2, block_size),
                Block(block_size * 5, HEIGHT - block_size * 2, block_size),
                Block(block_size * 6, HEIGHT - block_size * 3, block_size),
                Block(block_size * 6, HEIGHT - block_size * 2, block_size),
@@ -513,9 +527,8 @@ def main(window):
                Block(block_size * 41, HEIGHT - block_size * 3, block_size),
                Block(block_size * 41, HEIGHT - block_size * 4, block_size),
                Block(block_size * 41, HEIGHT - block_size * 5, block_size),
-               Block(block_size * 41, HEIGHT - block_size * 6, block_size),
-
                ]
+    chest.on()
 
     offset_x = 0
     # how far off to side you go
@@ -540,7 +553,7 @@ def main(window):
                 if event.key == pygame.K_SPACE and player.jump_count < 2:
                     player.jump()
 
-        if player.rect.colliderect(fire.rect):
+        if player.rect.colliderect(chest.rect):
             # Show the message and set the flag to True
             if not player_colliding:
                 player_colliding = True
@@ -551,7 +564,7 @@ def main(window):
             player_colliding = False
 
         player.loop(FPS)
-        fire.loop()
+        chest.loop()
         handle_move(player, objects)
         draw(window, background, bg_image, player, objects, offset_x)
 
