@@ -71,6 +71,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.flip()
 
     # connect buttons to main
+    (currently cant work)
 """
 pygame.display.set_caption("Platformer")
 
