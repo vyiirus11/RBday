@@ -44,7 +44,7 @@ BLACK = (13, 13, 13)
 YOLK = (252, 232, 131)
 FROGGE = (147, 197, 114)
 WIDTH = 1000
-HEIGHT = 500
+HEIGHT = 600
 FPS = 60
 PLAYER_VEL = 5
 
@@ -384,10 +384,9 @@ def handle_move(player, objects):
         if isinstance(obj, Fire) and collide_rect(player, obj):
             if obj.rect.x == -830:
                 player.make_hit()
-                display_picture("assets/picture.png")
             if obj.rect.x == 3775:
                 player.make_hit()
-                display_message("guess what...\nHappy Birthday!\nBut there is more...\nFind the mystery chest!", clock)
+                display_message("guess what...", clock)
 
 
 def display_picture(image_path):
@@ -440,20 +439,20 @@ def display_message(message, clock):
 
         for i, message in enumerate(message):
             # Convert the message to Unicode string
-            text = font.render("guess what? The moment of surprise...", 0, (0, 0, 0))
-            text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT - 420))
+            text = font.render("guess who's old?...YOU ARE!", 0, (0, 0, 0))
+            text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT - 470))
             message_window.blit(text, text_rect)
 
             text2 = font.render(": ! ! : ! . . : . ! . ! : ! : . Happy Birthday . : ! : ! . ! . : . . ! : ! ! :", 0, (0, 0, 0))
-            text2_rect = text2.get_rect(center=(WIDTH // 2, HEIGHT - 300))
+            text2_rect = text2.get_rect(center=(WIDTH // 2, HEIGHT - 350))
             message_window.blit(text2, text2_rect)
 
             text3 = font.render("But there is more... Find the mystery chest!", 0, (0, 0, 0))
-            text3_rect = text3.get_rect(center=(WIDTH // 2, HEIGHT - 180))
+            text3_rect = text3.get_rect(center=(WIDTH // 2, HEIGHT - 230))
             message_window.blit(text3, text3_rect)
 
-            text4 = font.render("(  Hint: Play again  )", 0, (0, 0, 0))
-            text4_rect = text4.get_rect(center=(WIDTH // 2, HEIGHT - 100))
+            text4 = font.render("(  Hint: A  )", 0, (0, 0, 0))
+            text4_rect = text4.get_rect(center=(WIDTH // 2, HEIGHT - 150))
             message_window.blit(text4, text4_rect)
 
         # Rest of the code...
@@ -522,7 +521,8 @@ def main(window):
     # how far off to side you go
     scroll_area_width = 400
 
-    goofy_pic1 = pygame.image.load("assets/goofy_pic1.png")
+    sillypic = pygame.image.load("assets/reesegoofypic.jpg")
+    sillypic2 = pygame.image.load("assets/reesegoofypic2.jpg")
     player_colliding = False
     message_window = pygame.display.set_mode((WIDTH, HEIGHT))
     message_start_time = 0
@@ -545,7 +545,6 @@ def main(window):
             if not player_colliding:
                 player_colliding = True
                 message_start_time = pygame.time.get_ticks()
-                message_window.blit(goofy_pic1, goofy_pic1.get_rect(center=(200, 20)))
 
             # Check if the message should stay on screen for 3 seconds
         if player_colliding and pygame.time.get_ticks() - message_start_time >= 10000:
@@ -561,7 +560,7 @@ def main(window):
             offset_x += player.x_vel
 
         if player_colliding:
-            message_window.blit(goofy_pic1, (0, 0))
+            message_window.blit(sillypic2, (0, 0))
             pygame.display.update()
 
     pygame.quit()
