@@ -560,7 +560,7 @@ def main(window):
             offset_x += player.x_vel
 
         if player_colliding:
-            message_window.blit(sillypic2, (0, 0))
+            message_window.blit(sillypic, (0, 0))
             pygame.display.update()
 
     pygame.quit()
