@@ -146,7 +146,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 def get_block(size):
     pygame.init()
     pygame.mixer.init()
-    pygame.mixer.music.load('sounds/FiftyFifty_Cupid.mp3')
+    pygame.mixer.music.load('sounds/FiftyFifty_Cupid_Lullaby.mp3')
     music.play(0)
     path = join("assets", "Terrain", "Terrain.png")
     image = pygame.image.load(path).convert_alpha()
