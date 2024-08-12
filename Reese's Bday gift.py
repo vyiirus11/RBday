@@ -560,7 +560,7 @@ def main(window):
                 message_start_time = pygame.time.get_ticks()
 
             # Check if the message should stay on screen for 3 seconds
-        if player_colliding and pygame.time.get_ticks() - message_start_time >= 10000:
+        if player_colliding and pygame.time.get_ticks() - message_start_time >= 5000:
             player_colliding = False
 
         player.loop(FPS)
