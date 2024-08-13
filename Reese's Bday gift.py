@@ -423,7 +423,7 @@ def display_message(message, clock):
 
     restart_button_rect = pygame.Rect(WIDTH // 3, HEIGHT - 75, 250, 60)
     # Render the message text
-    # fonts: Nicotine.ttf , Jedisf3Dital.ttf, Alien Mushrooms.otf, Minecraft.ttf, YourStarTtf.ttf, nyetlaserital.otf
+    # fonts: Nicotine.ttf , Jedisf3Dital.ttf, Alien Mushrooms.otf, Minecraft.ttf, nyetlaserital.otf
     font = pygame.font.Font('Jedisf3Dital.ttf', 32)
 
     while True:
@@ -480,9 +480,9 @@ def main(window):
     # Fire(x axis position,...)
     player = Player(210, HEIGHT - 50, 50, 50)
     #suprise chest
-    chest = Chest(-1800, HEIGHT - block_size - 64, 15, 32)
+    chest = Chest(-3500, HEIGHT - block_size - 64, 15, 32)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range(-WIDTH*2 // block_size, (WIDTH * 4) // block_size)]
+             for i in range(-WIDTH*4 // block_size, (WIDTH * 4) // block_size)]
     # where the floor, grass blocks, and fire you want to place them
     objects = [*floor,
                chest,
@@ -491,9 +491,6 @@ def main(window):
                Chest(3775, HEIGHT - block_size * 2 - 64, 15, 32),
                Block(block_size * -20, HEIGHT - block_size * 2, block_size),
                Block(block_size * -20, HEIGHT - block_size * 3, block_size),
-               Block(block_size * -20, HEIGHT - block_size * 4, block_size),
-               Block(block_size * -20, HEIGHT - block_size * 5, block_size),
-               Block(block_size * -20, HEIGHT - block_size * 6, block_size),
                Block(block_size * -15, HEIGHT - block_size * 2, block_size),
                Block(block_size * -14, HEIGHT - block_size * 2, block_size),
                Block(block_size * -14, HEIGHT - block_size * 3, block_size),
